@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 class AutoScalingText extends React.Component {
   state = {
@@ -282,9 +283,9 @@ class Calculator extends React.Component {
          </div>
           </div>
           <div className="operator-keys">
-            <CalculatorKey className="15 percent tip" onPress={() => this.performOperation('* %15')}>* %15</CalculatorKey>
-            <CalculatorKey className="20 percent tip" onPress={() => this.performOperation('* %20')}>* %20</CalculatorKey>
-            <CalculatorKey className="25 percent tip" onPress={() => this.performOperation('* %25')}>* %25</CalculatorKey>
+            <CalculatorKey className="15 percent tip" onPress={() => this.performOperation('* %15')}>%15</CalculatorKey>
+            <CalculatorKey className="20 percent tip" onPress={() => this.performOperation('* %20')}>%20</CalculatorKey>
+            <CalculatorKey className="25 percent tip" onPress={() => this.performOperation('* %25')}>%25</CalculatorKey>
             <CalculatorKey className="key-divide" onPress={() => this.performOperation('/')}>÷</CalculatorKey>
             <CalculatorKey className="key-multiply" onPress={() => this.performOperation('*')}>×</CalculatorKey>
             <CalculatorKey className="key-subtract" onPress={() => this.performOperation('-')}>−</CalculatorKey>
