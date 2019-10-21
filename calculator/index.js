@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+const PointTarget = ReactPoint.PointTarget
 class AutoScalingText extends React.Component {
   state = {
     scale: 1
@@ -49,7 +50,7 @@ class CalculatorDisplay extends React.Component {
       maximumFractionDigits: 6
     })
     
-    // Add back missing .0 in e.g. 12.0
+    
     const match = value.match(/\.\d*?(0*)$/)
     
     if (match)
@@ -80,9 +81,6 @@ const CalculatorOperations = {
   '*': (prevValue, nextValue) => prevValue * nextValue,
   '+': (prevValue, nextValue) => prevValue + nextValue,
   '-': (prevValue, nextValue) => prevValue - nextValue,
-  '%15': (prevValue) => prevValue *.15,
-  '%20': (prevValue) => prevValue *.20,
-  '%25': (prevValue) => prevValue *.25,
   '=': (prevValue, nextValue) => nextValue
 }
 
