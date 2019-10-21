@@ -80,6 +80,7 @@ const CalculatorOperations = {
   '*': (prevValue, nextValue) => prevValue * nextValue,
   '+': (prevValue, nextValue) => prevValue + nextValue,
   '-': (prevValue, nextValue) => prevValue - nextValue,
+  '%15': (prevValue,nextValue) => prevValue *.15,
   '=': (prevValue, nextValue) => nextValue
 }
 
@@ -261,9 +262,9 @@ class Calculator extends React.Component {
               <CalculatorKey className="key-clear" onPress={() => clearDisplay ? this.clearDisplay() : this.clearAll()}>{clearText}</CalculatorKey>
               <CalculatorKey className="key-sign" onPress={() => this.toggleSign()}>±</CalculatorKey>
               <CalculatorKey className="key-percent" onPress={() => this.inputPercent()}>%</CalculatorKey>
-              <CalculatorKey className="key-%15" onPress={() => this.inputPercent(.15)}>%15</CalculatorKey>
-              <CalculatorKey className="key-%20" onPress={() => this.inputPercent(.20)}>%20</CalculatorKey>
-              <CalculatorKey className="key-%25" onPress={() => this.inputPercent(.25)}>%25</CalculatorKey>
+              <CalculatorKey className="key-%15" onPress={() => this.inputPercent()}>%15</CalculatorKey>
+              <CalculatorKey className="key-%20" onPress={() => this.inputPercent()}>%20</CalculatorKey>
+             <CalculatorKey className="key-%25" onPress={() => this.inputPercent()}>%25</CalculatorKey>
             </div>
             <div className="digit-keys">
               <CalculatorKey className="key-0" onPress={() => this.inputDigit(0)}>0</CalculatorKey>
@@ -280,9 +281,6 @@ class Calculator extends React.Component {
          </div>
           </div>
           <div className="operator-keys">
-            <CalculatorKey className="15 percent tip" onPress={() => this.performOperation('*.15')}>%15</CalculatorKey>
-            <CalculatorKey className="20 percent tip" onPress={() => this.performOperation('* .20')}>%20</CalculatorKey>
-            <CalculatorKey className="25 percent tip" onPress={() => this.performOperation('* .25')}>%25</CalculatorKey>
             <CalculatorKey className="key-divide" onPress={() => this.performOperation('/')}>÷</CalculatorKey>
             <CalculatorKey className="key-multiply" onPress={() => this.performOperation('*')}>×</CalculatorKey>
             <CalculatorKey className="key-subtract" onPress={() => this.performOperation('-')}>−</CalculatorKey>
