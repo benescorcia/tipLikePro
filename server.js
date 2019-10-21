@@ -8,6 +8,7 @@ var path = require("path");
 var passport = require("passport");
 var localStrategy = require("passport-local");
 var expressSession = require("express-session");
+var React = require("react");
 var Photo = require("./models/photo");
 var Contact = require("./models/contact");
 var Bookmark = require("./models/bookmark");
