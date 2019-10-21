@@ -22,7 +22,7 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 app.use(methodOverride("_method"));
-app.use(express.static("public"));
+app.use(express.static("firebase"));
 
 
 // Mongoose configuration
@@ -182,6 +182,10 @@ function isSignedIn(req, res, next){
     res.redirect("/login");
 }
 
+
+app.use("*", function(req, res){
+    res.sendFile("./tiplikepro-app/build/index.html");
+});
 
 
 // Server Listening 
