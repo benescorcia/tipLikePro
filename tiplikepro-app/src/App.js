@@ -1,6 +1,6 @@
 import React from 'react';
+import PointTarget from 'react-point'
 
-const PointTarget = ReactPoint.PointTarget
 class AutoScalingText extends React.Component {
   state = {
     scale: 1
@@ -8,7 +8,7 @@ class AutoScalingText extends React.Component {
   
   componentDidUpdate() {
     const { scale } = this.state
-    
+  
     const node = this.node
     const parentNode = node.parentNode
     
@@ -295,6 +295,7 @@ class Calculator extends React.Component {
     );
      
     };
+    
 }
 
-export default App;
+export default Calculator;
