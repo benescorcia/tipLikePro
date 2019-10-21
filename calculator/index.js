@@ -1,5 +1,7 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
+const PointTarget = ReactPoint.PointTarget
 class AutoScalingText extends React.Component {
   state = {
     scale: 1
@@ -48,7 +50,7 @@ class CalculatorDisplay extends React.Component {
       maximumFractionDigits: 6
     })
     
-    // Add back missing .0 in e.g. 12.0
+    
     const match = value.match(/\.\d*?(0*)$/)
     
     if (match)
@@ -79,9 +81,6 @@ const CalculatorOperations = {
   '*': (prevValue, nextValue) => prevValue * nextValue,
   '+': (prevValue, nextValue) => prevValue + nextValue,
   '-': (prevValue, nextValue) => prevValue - nextValue,
-  '%15': (prevValue) => prevValue *.15,
-  '%20': (prevValue) => prevValue *.20,
-  '%25': (prevValue) => prevValue *.25,
   '=': (prevValue, nextValue) => nextValue
 }
 
@@ -282,9 +281,9 @@ class Calculator extends React.Component {
          </div>
           </div>
           <div className="operator-keys">
-            <CalculatorKey className="15 percent tip" onPress={() => this.performOperation('* %15')}>* %15</CalculatorKey>
-            <CalculatorKey className="20 percent tip" onPress={() => this.performOperation('* %20')}>* %20</CalculatorKey>
-            <CalculatorKey className="25 percent tip" onPress={() => this.performOperation('* %25')}>* %25</CalculatorKey>
+            <CalculatorKey className="15 percent tip" onPress={() => this.performOperation('* %15')}>%15</CalculatorKey>
+            <CalculatorKey className="20 percent tip" onPress={() => this.performOperation('* %20')}>%20</CalculatorKey>
+            <CalculatorKey className="25 percent tip" onPress={() => this.performOperation('* %25')}>%25</CalculatorKey>
             <CalculatorKey className="key-divide" onPress={() => this.performOperation('/')}>÷</CalculatorKey>
             <CalculatorKey className="key-multiply" onPress={() => this.performOperation('*')}>×</CalculatorKey>
             <CalculatorKey className="key-subtract" onPress={() => this.performOperation('-')}>−</CalculatorKey>
