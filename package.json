@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "cd ./tiplikepro-app npm install",
+    "install": "cd tiplikepro-app && npm install",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
-    "client": "cd ./tiplikepro-app npm start",
+    "client": "cd tiplikepro-app && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
