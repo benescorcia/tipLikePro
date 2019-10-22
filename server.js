@@ -8,7 +8,8 @@ var path = require("path");
 var passport = require("passport");
 var localStrategy = require("passport-local");
 var expressSession = require("express-session");
-var React = require("react");
+var React = require('react');
+var ReactDOM = require('react-dom');
 var Photo = require("./models/photo");
 var Contact = require("./models/contact");
 var Bookmark = require("./models/bookmark");
@@ -23,7 +24,7 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 app.use(methodOverride("_method"));
-app.use(express.static("public"));
+app.use(express.static("firebase"));
 
 
 // Mongoose configuration
@@ -57,39 +58,39 @@ app.use(function(req, res, next){
 // ROUTES
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// Index
-app.get("/", function(req, res){
-    res.render("index");
-});
+// // Index
+// app.get("/", function(req, res){
+//     res.render("index");
+// });
 
-// Dashboard
-app.get("/dashboard", isSignedIn, function(req, res){
-    res.render("dashboard");
-});
+// // Dashboard
+// app.get("/dashboard", isSignedIn, function(req, res){
+//     res.render("dashboard");
+// });
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Photo ROUTES
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// // Photo ROUTES
+// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-app.get("/photos", isSignedIn, function(req, res){
+// app.get("/photos", isSignedIn, function(req, res){
 
-    // find all photos
-    Photo.find({}, function(err, photos){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("photos/photos", {photos: photos, currentUser: req.user});
-        }
-    });
-});
+//     // find all photos
+//     Photo.find({}, function(err, photos){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             res.render("photos/photos", {photos: photos, currentUser: req.user});
+//         }
+//     });
+// });
 
-// Create and add photo
-app.post("/photos", function(req, res){ 
+// // Create and add photo
+// app.post("/photos", function(req, res){ 
        
-    //get data from user
-    var image = req.body.image;
-    var created = req.body.created;
-    var newPhoto = {image: image, created: created};
+//     //get data from user
+//     var image = req.body.image;
+//     var created = req.body.created;
+//     var newPhoto = {image: image, created: created};
     
     Photo.create(newPhoto, function(err, newnew){
         if(err){
@@ -253,60 +254,12 @@ app.delete("/bookmarks/:id", isSignedIn, function(req, res){
     })
 });
 
+var path = require('path');
 
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Authentication ROUTES
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-// show sign up form
-app.get("/register", function(req, res){
-    res.render("register");
+var x = path.join('Users', 'Refsnes', 'demo_path.js');
+app.use("*", function(req, res){
+    res.sendFile( path.join(__dirname, 'tiplikepro-app', 'build', 'index.html'));
 });
-
-// register user
-app.post("/register", function(req, res){
-    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-        if(err) {
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-            res.redirect("/dashboard");
-        });
-    });
-});
-
-
-// show login form
-app.get("/login", function(req, res){
-    res.render("login");
-});
-
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login"
-}), function(req, res){
-    
-});
-
-
-// logout
-app.get("/logout", function(req, res){
-    req.logout();
-    res.redirect("/");
-});
-
-
-//isSignedIn Middleware
-
-function isSignedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
-
 
 
 // Server Listening 
