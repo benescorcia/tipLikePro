@@ -1,0 +1,62 @@
+<div class="text-center bg-light text-dark mt-4">
+    <h3 style="font-family: 'Poppins', sans-serif;">My Images</h3>
+</div>
+
+<br>
+
+<div class="row container-fluid p-0 m-0">
+    <div class="col-sm-12" id="photos">
+        
+    </div>
+</div>
+<br>
+
+
+<script>  
+// <!-- ****************** Retrieve and Display Data from Firebase *************************** -->
+    var user = firebase.auth().currentUser;
+    var dbPhotos = firebase.database().ref().child("Photos").orderByChild("uid").equalTo(user.uid);
+    dbPhotos.on("value", function(photos)
+    {
+        if(photos.exists()) 
+        {
+            var photosHtml = "";
+
+            photos.forEach(function(singlePhoto)
+            {
+                counter = counter + 1;
+                photosHtml += "<div class='card text-dark border border-light pb-0'>";
+
+                    photosHtml += "<div><img width='100%' height='auto' class='img-thumbnail' src='";
+                        photosHtml += singlePhoto.val().image;
+                    photosHtml += "'/></div>";  
+
+                        // photosHtml += "<div>";
+                        //     photosHtml += singlePhoto.val().desc;
+                        // photosHtml += "</div> <br>";  
+
+                        photosHtml += "<div class='form-group mx-auto pb-0'>";
+                            photosHtml += "<button class='btn btn-light bg-dark text-white mt-3' onclick=deleteimage('"+singlePhoto.key+"')>Delete Image</button>"
+                        photosHtml += "</div>";  
+
+                photosHtml += "</div>";   
+            });
+
+            $("#photos").html(photosHtml);
+        }
+    });
+
+    function deleteimage(key)
+    {
+        var deleteRef = firebase.database().ref().child("Photos").child(key);
+
+        return deleteRef.remove()
+        .then(function(){
+            console.log("Removed Successfully");
+        })
+        .catch(function(){
+            console.log("Error");
+        })
+    }
+// <!-- ******End******* Retrieve and Display Data from Firebase ************END********** -->
+</script>
