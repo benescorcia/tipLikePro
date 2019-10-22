@@ -1,0 +1,26 @@
+{{> header}}
+
+<div class="container">
+    <div class="row mt-5 p-5">
+        <h4 class="mx-auto">Add contact</h4>
+    </div>
+    <div class="col-md-12">
+        <form action="/bookmarks" method="post" class="form-row text-center">
+                <div class="col-md-12 mb-3"> 
+                    <label for="link">Add Bookmark</label>
+                    <input type="text" link= "link" placeholder="link"  class="form-control" required> 
+                </div>
+                <div class="col-md-12 mb-3"> 
+                    <label for="description">Description</label>
+                    <input type="text" description= "description" placeholder="description"  class="form-control" required> 
+                </div>
+                <div class="col-md-12 mb-3"> 
+                    <label for="created">Created on</label>
+                    <input type="text" created= "created" placeholder="created"  class="form-control" required> 
+                </div>
+            <div class="col-md-12">
+                <button class="btn btn-outline btn-block">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
