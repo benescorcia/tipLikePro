@@ -10,9 +10,11 @@ body {
     background: rgb(179, 44, 44);
     width: 160px;
     height: 160px;
-    margin: 10px;
+    margin: 100px;
     border-radius: 10px;
     padding: 0;
+    transition: all 0.9s ease 0s;
+
 }
 
 .dashboard {
@@ -80,5 +82,6 @@ span.dash-caption {
     font-size: 30px;
     font-style: normal;
     font-family: Comic Sans MS, Comic Sans, cursive;
+    
 
 }
