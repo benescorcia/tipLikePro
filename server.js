@@ -256,8 +256,8 @@ var PORT = process.env.PORT || 3001;
 // });
 
 app.use("/app/*", (req, res) => {
-    console.log("HI :P", `./firebase/${req.originalUrl.replace("/app/", "")}`)
-    return res.sendFile(path.join(__dirname, `./firebase/${req.originalUrl.replace("/app/", "")}`))
+    console.log("HI :P", `./firebase${req.originalUrl}`)
+    return res.sendFile(path.join(__dirname, `./firebase${req.originalUrl}`))
 });
 
 app.use("*", (req, res) => {
