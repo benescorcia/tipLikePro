@@ -57,6 +57,12 @@ code {
 @media (max-width:800px) {
   .calculator {
     width: 280px;
+    height: 350px;
+    padding: 120px 0 0;
+    background: #2a2929;
+    position: absolute;
+    box-sizing: border-size;
+    top: 50%;
     left: 55%;
 
   }
