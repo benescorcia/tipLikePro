@@ -17,7 +17,7 @@ code {
   box-sizing: border-box;
   padding: 20px 20px 0;
   font-size: 48px;
-  color: lightgreen;
+  color: rgb(104, 245, 10);
   text-align: right;
   position: absolute;
   top: 10px;
@@ -29,7 +29,7 @@ code {
   height: 70px;
   display: block;
   float: left;
-  color: #000;
+  color: rgb(54, 172, 30);
   line-height: 50px;
   text-align: center;
   box-sizing: border-box;
@@ -37,15 +37,20 @@ code {
   border: 0 none;
   border-left: 1px solid #8e8e8e;
   border-bottom: 1px solid #8e8e8e;
+  border-top: 1px solid #8e8e8e;
+  border-right: 1px solid #8e8e8e;
+  border-block-end-style: 5px double;
   font-family: 'Lato', sans-serif;
   font-size: 24px;
+  font-weight: bold;
+  background-color: black;
 }
 
 .calculator {
   width: 280px;
   height: 350px;
   padding: 120px 0 0;
-  background: #2a2929;
+  background: #6b6868;
   position: absolute;
   box-sizing: border-size;
   top: 50%;
