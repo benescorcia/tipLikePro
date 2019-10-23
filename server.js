@@ -24,7 +24,8 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 app.use(methodOverride("_method"));
-app.use(express.static("firebase"));
+app.use(express.static(path.join(__dirname, "./tiplikepro-app/build")));
+
 
 
 // Mongoose configuration
@@ -35,23 +36,23 @@ mongoose.set('useFindAndModify', false);
 var PORT = process.env.PORT || 3001;
 
 
-// Passport
-app.use(expressSession({
-    secret: "Ben always get called first!",
-    resave: false,
-    saveUnitialized: false
-}));
+// // Passport
+// app.use(expressSession({
+//     secret: "Ben always get called first!",
+//     resave: false,
+//     saveUnitialized: false
+// }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new localStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next){
-    res.locals.currentUser = req.user;
-    next();
-})
+// app.use(function(req, res, next){
+//     res.locals.currentUser = req.user;
+//     next();
+// })
 
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -254,15 +255,18 @@ app.use(function(req, res, next){
 //     })
 // });
 
-var path = require('path');
-
-var x = path.join('Users', 'Refsnes', 'demo_path.js');
-app.use("*", function(req, res){
-    res.sendFile( path.join(__dirname, 'tiplikepro-app', 'build', 'index.html'));
+app.use("/app/*", (req, res) => {
+    console.log("HI :P", `./firebase/${req.originalUrl.replace("/app/", "")}`)
+    return res.sendFile(path.join(__dirname, `./firebase/${req.originalUrl.replace("/app/", "")}`))
 });
 
+app.use("*", (req, res) => {
+    console.log("HI :P", path.join(__dirname, "./tiplikepro-app/build/index.html"))
+    return res.sendFile(path.join(__dirname, "./tiplikepro-app/build/index.html"))
+});
 
 // Server Listening 
 app.listen(PORT, function() {
     console.log("App running on port " + PORT);
+
 });

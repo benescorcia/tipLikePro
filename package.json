@@ -6,8 +6,8 @@
   "scripts": {
     "install": "cd tiplikepro-app && npm install",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server.js",
-    "client": "cd tiplikepro-app && npm start",
+    "server": "nodemon --ignore 'tiplikepro-app/*' server.js",
+    "client": "cd tiplikepro-app && nodemon --ignore 'build' --exec npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
