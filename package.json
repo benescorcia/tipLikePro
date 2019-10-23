@@ -1,7 +1,7 @@
 {
   "name": "tipcalc",
   "version": "1.0.0",
-  "description": "",
+  "description": "While using this app your are responsible for the content that you the user use it for. This includes anything that you put in your photo's folder, url address  folder, and anything else that you store on this app.  TipLikePro is is not responsible nor can be held responsible for the way are app is used.",
   "main": "index.js",
   "scripts": {
     "install": "cd tiplikepro-app && npm install",
@@ -16,8 +16,8 @@
   },
 
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "kp",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.0.0",
@@ -32,5 +32,14 @@
     "passport-local-mongoose": "^5.0.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benescorcia/tipLikePro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/benescorcia/tipLikePro/issues"
+  },
+  "homepage": "https://github.com/benescorcia/tipLikePro#readme"
 }
