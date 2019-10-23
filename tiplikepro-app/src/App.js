@@ -123,6 +123,50 @@ class Calculator extends React.Component {
     })
   }
 
+  input15Percent() {
+    const { displayValue } = this.state
+    const currentValue = parseFloat(displayValue)
+    
+    if (currentValue === 0)
+      return
+    
+    const fixedDigits = displayValue.replace(/^-?\d*\.?/, '')
+    const newValue = parseFloat(displayValue*15) / 100
+    
+    this.setState({
+      displayValue: String(newValue.toFixed(fixedDigits.length + 2))
+    })
+  }
+
+  input20Percent() {
+    const { displayValue } = this.state
+    const currentValue = parseFloat(displayValue)
+    
+    if (currentValue === 0)
+      return
+    
+    const fixedDigits = displayValue.replace(/^-?\d*\.?/, '')
+    const newValue = parseFloat(displayValue*20) / 100
+    
+    this.setState({
+      displayValue: String(newValue.toFixed(fixedDigits.length + 2))
+    })
+  }
+
+  input25Percent() {
+    const { displayValue } = this.state
+    const currentValue = parseFloat(displayValue)
+    
+    if (currentValue === 0)
+      return
+    
+    const fixedDigits = displayValue.replace(/^-?\d*\.?/, '')
+    const newValue = parseFloat(displayValue*25) / 100
+    
+    this.setState({
+      displayValue: String(newValue.toFixed(fixedDigits.length + 2))
+    })
+  }
 
   inputPercent() {
     const { displayValue } = this.state
@@ -217,7 +261,7 @@ class Calculator extends React.Component {
 
     } else if (key === '15%') {
         event.preventDefault()
-        this.inputPercent()
+        this.input15Percent()
       
     } else if (key === '20%') {
         event.preventDefault()
@@ -263,12 +307,12 @@ class Calculator extends React.Component {
               {/* <CalculatorKey className="key-sign" onPress={() => this.toggleSign()}>±</CalculatorKey>
               <CalculatorKey className="key-percent" onPress={() => this.inputPercent()}>%</CalculatorKey> */}
               
-              <CalculatorKey className="key-%15" onPress={() => this.inputPercent(.15)}>15%</CalculatorKey>
-              <CalculatorKey className="key-%20" onPress={() => this.inputPercent(.20)}>20%</CalculatorKey>
-              <CalculatorKey className="key-%25" onPress={() => this.inputPercent(.25)}>25%</CalculatorKey>
+              <CalculatorKey className="key-%15" onPress={() => this.input15Percent(.15)}>15%</CalculatorKey>
+              <CalculatorKey className="key-%20" onPress={() => this.input20Percent(.20)}>20%</CalculatorKey>
+              <CalculatorKey className="key-%25" onPress={() => this.input25Percent(.25)}>25%</CalculatorKey>
             </div>
             <div className="digit-keys">
-              <CalculatorKey className="key-0" onPress={() => this.inputDigit(0)}>0</CalculatorKey>
+              
               <CalculatorKey className="key-1" onPress={() => this.inputDigit(1)}>1</CalculatorKey>
               <CalculatorKey className="key-2" onPress={() => this.inputDigit(2)}>2</CalculatorKey>
               <CalculatorKey className="key-3" onPress={() => this.inputDigit(3)}>3</CalculatorKey>
@@ -278,6 +322,7 @@ class Calculator extends React.Component {
               <CalculatorKey className="key-7" onPress={() => this.inputDigit(7)}>7</CalculatorKey>
               <CalculatorKey className="key-8" onPress={() => this.inputDigit(8)}>8</CalculatorKey>
               <CalculatorKey className="key-9" onPress={() => this.inputDigit(9)}>9</CalculatorKey>
+              <CalculatorKey className="key-0" onPress={() => this.inputDigit(0)}>0</CalculatorKey>
               <CalculatorKey className="key-dot" onPress={() => this.inputDot()}>●</CalculatorKey>
          </div>
           </div>

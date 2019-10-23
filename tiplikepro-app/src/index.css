@@ -45,8 +45,15 @@ code {
   font-size: 24px;
   font-weight: bold;
   background-color: black;
+  box-shadow: 3px 5px #585858;
+
   
 }
+
+a:hover {
+  background-color: yellow;
+}
+
 
 .calculator {
   width: 280px;
@@ -59,23 +66,23 @@ code {
   left: 50%;
   margin: -240px 0 0 -160px;
   border: 1px solid black;
-}
+  border-radius: 20px;
+  box-shadow: 15px 20px #a09e9e;
 
-.key-%15 {
-  background: red;
+
+
 }
 
 @media (max-width:800px) {
   .calculator {
-    width: 280px;
-    height: 350px;
+    width: 285px;
+    height: 355px;
     padding: 120px 0 0;
     background: #333333;
     position: absolute;
     box-sizing: border-size;
     top: 50%;
     left: 55%;
-    border-radius: 20px;
 
   }
 
