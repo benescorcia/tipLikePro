@@ -24,7 +24,7 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 app.use(methodOverride("_method"));
-app.use(express.static("public"));
+app.use(express.static("firebase"));
 
 
 // Mongoose configuration
@@ -58,256 +58,138 @@ app.use(function(req, res, next){
 // ROUTES
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// Index
-app.get("/", function(req, res){
-    res.render("index");
-});
+// // Index
+// app.get("/", function(req, res){
+//     res.render("index");
+// });
 
-// Dashboard
-app.get("/dashboard", isSignedIn, function(req, res){
-    res.render("dashboard");
-});
+// // Dashboard
+// app.get("/dashboard", isSignedIn, function(req, res){
+//     res.render("dashboard");
+// });
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Photo ROUTES
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// // Photo ROUTES
+// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-app.get("/photos", isSignedIn, function(req, res){
+// app.get("/photos", isSignedIn, function(req, res){
 
-    // find all photos
-    Photo.find({}, function(err, photos){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("photos/photos", {photos: photos, currentUser: req.user});
-        }
-    });
-});
+//     // find all photos
+//     Photo.find({}, function(err, photos){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             res.render("photos/photos", {photos: photos, currentUser: req.user});
+//         }
+//     });
+// });
 
-// Create and add photo
-app.post("/photos", function(req, res){ 
+// // Create and add photo
+// app.post("/photos", function(req, res){ 
        
-    //get data from user
-    var image = req.body.image;
-    var created = req.body.created;
-    var newPhoto = {image: image, created: created};
+//     //get data from user
+//     var image = req.body.image;
+//     var created = req.body.created;
+//     var newPhoto = {image: image, created: created};
     
-    Photo.create(newPhoto, function(err, newnew){
-        if(err){
-            console.log(err);
-        } else {
-            //redirect to photos page
-            res.redirect("/photos");
-        }
-    });
-});
+//     Photo.create(newPhoto, function(err, newnew){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             //redirect to photos page
+//             res.redirect("/photos");
+//         }
+//     });
+// });
 
-// New photo/form view
-app.get("/photos/new", isSignedIn, function(req, res){
-    res.render("photos/new");
-});
+// // New photo/form view
+// app.get("/photos/new", isSignedIn, function(req, res){
+//     res.render("photos/new");
+// });
 
-// Show photo
-app.get("/photos/:id", isSignedIn, function(req, res){
-    Photo.findById(req.params.id, function(err, found){
-        if(err){
-            console.log(err)
-        } else {
-            res.render("photos/show", {photo: found});
-        }
-    })
-});
+// // Show photo
+// app.get("/photos/:id", isSignedIn, function(req, res){
+//     Photo.findById(req.params.id, function(err, found){
+//         if(err){
+//             console.log(err)
+//         } else {
+//             res.render("photos/show", {photo: found});
+//         }
+//     })
+// });
 
-// Delete photo
-app.delete("/photos/:id", isSignedIn, function(req, res){
-    Photo.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            res.redirect("/photos");
-        } else {
-            res.redirect("/photos");
-        }
-    })
-});
+// // Delete photo
+// app.delete("/photos/:id", isSignedIn, function(req, res){
+//     Photo.findByIdAndRemove(req.params.id, function(err){
+//         if(err){
+//             res.redirect("/photos");
+//         } else {
+//             res.redirect("/photos");
+//         }
+//     })
+// });
 
 
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// contacts ROUTES
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-app.get("/contacts", isSignedIn, function(req, res){
+// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// // Authentication ROUTES
+// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    // find all contacts
-    Contact.find({}, function(err, contacts){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("contacts/contacts", {contacts: contacts, currentUser: req.user});
-        }
-    });
-});
+// // show sign up form
+// app.get("/register", function(req, res){
+//     res.render("register");
+// });
 
-// Create and add contacts
-app.post("/contacts", function(req, res){ 
-       
-    //get data from user
-    var name = req.body.name;
-    var telephone = req.body.telephone;
-    var newContact= {name: name, telephone: telephone};
+// // register user
+// app.post("/register", function(req, res){
+//     User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+//         if(err) {
+//             console.log(err);
+//             return res.render("register");
+//         }
+//         passport.authenticate("local")(req, res, function(){
+//             res.redirect("/dashboard");
+//         });
+//     });
+// });
+
+
+// // show login form
+// app.get("/login", function(req, res){
+//     res.render("login");
+// });
+
+// app.post("/login", passport.authenticate("local", {
+//     successRedirect: "/dashboard",
+//     failureRedirect: "/login"
+// }), function(req, res){
     
-    Contact.create(newContact, function(err, newnew){
-        if(err){
-            console.log(err);
-        } else {
-            //redirect to contacts page
-            res.redirect("/contacts");
-        }
-    });
+// });
+
+
+// // logout
+// app.get("/logout", function(req, res){
+//     req.logout();
+//     res.redirect("/");
+// });
+
+
+// //isSignedIn Middleware
+
+// function isSignedIn(req, res, next){
+//     if(req.isAuthenticated()){
+//         return next();
+//     }
+//     res.redirect("/login");
+// }
+
+var path = require('path');
+
+var x = path.join('Users', 'Refsnes', 'demo_path.js');
+app.use("*", function(req, res){
+    res.sendFile( path.join(__dirname, 'tiplikepro-app', 'build', 'index.html'));
 });
-
-// New contacts/form view
-app.get("/contacts/new", isSignedIn, function(req, res){
-    res.render("contacts/new");
-});
-
-// Show contacts
-app.get("/contacts/:id", isSignedIn, function(req, res){
-    Contact.findById(req.params.id, function(err, found){
-        if(err){
-            console.log(err)
-        } else {
-            res.render("contact/show", {contact: found});
-        }
-    })
-});
-
-// Delete contacts
-app.delete("/contacts/:id", isSignedIn, function(req, res){
-    Photo.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            res.redirect("/contacts");
-        } else {
-            res.redirect("/contacts");
-        }
-    })
-});
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Bokmarks ROUTES
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-app.get("/bookmarks", isSignedIn, function(req, res){
-
-    // find all bookmarks
-    Contact.find({}, function(err, bookmarks){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("bookmarks/bookmarks", {bookmarks: bookmarks, currentUser: req.user});
-        }
-    });
-});
-
-// Create and add bookmarks
-app.post("/bookmarks", function(req, res){ 
-       
-    //get data from user
-    var link = req.body.link;
-    var description = req.body.description;
-    var created = req.body.created;
-    var newBookmark= {link: link, description: description, created: created};
-    
-    Bookmark.create(newBookmark, function(err, newnew){
-        if(err){
-            console.log(err);
-        } else {
-            //redirect to bookmarks page
-            res.redirect("/bookmarks");
-        }
-    });
-});
-
-// New bookmarks/form view
-app.get("/bookmarks/new", isSignedIn, function(req, res){
-    res.render("bookmarks/new");
-});
-
-// Show bookmarks
-app.get("/bookmarks/:id", isSignedIn, function(req, res){
-    Bookmark.findById(req.params.id, function(err, found){
-        if(err){
-            console.log(err)
-        } else {
-            res.render("contact/show", {contact: found});
-        }
-    })
-});
-
-// Delete bookmarks
-app.delete("/bookmarks/:id", isSignedIn, function(req, res){
-    Photo.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            res.redirect("/bookmarks");
-        } else {
-            res.redirect("/bookmarks");
-        }
-    })
-});
-
-
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Authentication ROUTES
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-// show sign up form
-app.get("/register", function(req, res){
-    res.render("register");
-});
-
-// register user
-app.post("/register", function(req, res){
-    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-        if(err) {
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-            res.redirect("/dashboard");
-        });
-    });
-});
-
-
-// show login form
-app.get("/login", function(req, res){
-    res.render("login");
-});
-
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login"
-}), function(req, res){
-    
-});
-
-
-// logout
-app.get("/logout", function(req, res){
-    req.logout();
-    res.redirect("/");
-});
-
-
-//isSignedIn Middleware
-
-function isSignedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
-
 
 
 // Server Listening 
