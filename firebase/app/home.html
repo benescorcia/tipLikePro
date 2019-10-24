@@ -3,9 +3,6 @@
         <form id="main-form">
             <div class="form-group">
                 <textarea type="text" rows="1" placeholder="Type Image tags here..." class="form-control" id="main-desc"></textarea>
-                <!-- <div class="invalid-feedback">
-                    Please write a description.
-                </div> -->
             </div>
             <div class="form-group">
                 <input type="file" id="main-image" class="form-control">
@@ -19,9 +16,7 @@
             
                 <div class="form-group">
                     <div class="progress bg-secondary">
-                        <div class="progress-bar bg-success">
                             <div class="progress-bar bg-success" id="upload-progress" style="width: 0%;">0%</div>
-                        </div>
                     </div>
                 </div>
             
@@ -34,22 +29,6 @@
         </div>
     </div>
 </div>
-<!-----------------After Post Area-------------------->
-<!-- <hr>
-<br><br><br>
-<div class="text-center bg-light text-dark">
-    <h3>My Images</h3>
-</div>
-<hr>
-<br>
-
-<div class="row container-fluid bg-3">
-    <div class="col-sm-12" id="photos">
-        
-    </div>
-</div> -->
-
-<!---------------------validation and uploading--------------------------->
 
 <script>
     var validImagetypes = ["image/gif", "image/png", "image/jpg", "image/jpeg"];
@@ -63,8 +42,8 @@
             var reader = new FileReader();
             reader.onload = function(e)
                 {
-                    $("selected-image").attr('src', e.target.result);
-                    $("selected-image").fadeIn();
+                    $("#selected-image").attr('src', e.target.result);
+                    $("#selected-image").fadeIn();
                 }
             reader.readAsDataURL(image_photo.files[0]);
 
@@ -84,12 +63,6 @@
 
         var desc = $("#main-desc").val();
         var picture = $("#main-image").prop("files")[0];
-
-        // if(!desc)
-        // {
-        //     $("#main-desc").addClass("is-invalid");
-        //     return;
-        // }
 
         if(picture == null)
         {
