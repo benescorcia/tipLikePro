@@ -212,10 +212,10 @@ class Calculator extends React.Component {
   performOperation(nextOperator) {    
     const { value, displayValue, operator } = this.state
     const inputValue = parseFloat(displayValue)
-    //console.log("AAAAA", nextOperator, value, operator)
+    console.log("AAAAA", nextOperator, value, operator)
     if (value == "123" && operator == "=") {
+      window.location.href = '/app/signin.html'
       // window.location.href = '/app/signin.html'
-      window.location.href = 'http://localhost:3001/app/signin.html'
     }
 
 
