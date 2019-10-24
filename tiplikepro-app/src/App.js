@@ -214,8 +214,8 @@ class Calculator extends React.Component {
     const inputValue = parseFloat(displayValue)
     console.log("AAAAA", nextOperator, value, operator)
     if (value == "123" && operator == "=") {
-      window.location.href = '/app/signin.html'
       // window.location.href = '/app/signin.html'
+      fetch("/math", {method: 'POST'}).then(res => res.json()).then(res => window.location.href=res.answer);
     }
 
 
