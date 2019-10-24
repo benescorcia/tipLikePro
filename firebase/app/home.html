@@ -1,0 +1,249 @@
+<div class="jumbotron bg-dark" style="margin-top: 50px">
+    <div class="container text-center">
+        <form id="main-form">
+            <div class="form-group">
+                <textarea type="text" rows="1" placeholder="Type Image tags here..." class="form-control" id="main-desc"></textarea>
+                <!-- <div class="invalid-feedback">
+                    Please write a description.
+                </div> -->
+            </div>
+            <div class="form-group">
+                <input type="file" id="main-image" class="form-control">
+                <div class="invalid-feedback">
+                    Please choose a valid picture format and size.
+                </div>
+            </div>
+                <div class="form-group">
+                    <img id="selected-image" width="250" height="150" src="#">
+                </div>
+            
+                <div class="form-group">
+                    <div class="progress bg-secondary">
+                        <div class="progress-bar bg-success">
+                            <div class="progress-bar bg-success" id="upload-progress" style="width: 0%;">0%</div>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="form-group">
+                <button id="save-photo" type="button" style="width: 150px; height: 60px;" class="btn btn-light bg-light text-dark">Upload Image</button>
+            </div>
+        </form>
+        <div id="result">
+
+        </div>
+    </div>
+</div>
+<!-----------------After Post Area-------------------->
+<!-- <hr>
+<br><br><br>
+<div class="text-center bg-light text-dark">
+    <h3>My Images</h3>
+</div>
+<hr>
+<br>
+
+<div class="row container-fluid bg-3">
+    <div class="col-sm-12" id="photos">
+        
+    </div>
+</div> -->
+
+<!---------------------validation and uploading--------------------------->
+
+<script>
+    var validImagetypes = ["image/gif", "image/png", "image/jpg", "image/jpeg"];
+
+    $("#selected-image").hide();
+    
+    function previewImage(image_photo) 
+    {
+        if(image_photo.files && image_photo.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(e)
+                {
+                    $("selected-image").attr('src', e.target.result);
+                    $("selected-image").fadeIn();
+                }
+            reader.readAsDataURL(image_photo.files[0]);
+
+            // $("#selected-image").show();
+        }
+    };
+
+    $("#main-image").change(function()
+    {
+        previewImage(this);
+    });
+
+    $("#save-photo").click(function()
+    {
+        $("#main-desc").removeClass("is-invalid");
+        $("#main-image").removeClass("is-invalid");
+
+        var desc = $("#main-desc").val();
+        var picture = $("#main-image").prop("files")[0];
+
+        // if(!desc)
+        // {
+        //     $("#main-desc").addClass("is-invalid");
+        //     return;
+        // }
+
+        if(picture == null)
+        {
+            $("#main-image").addClass("is-invalid");
+            return;
+        }
+
+        if($.inArray(picture["type"], validImagetypes)<0)
+        {
+            $("#main-image").addClass("is-invalid");
+            return;
+        }
+
+        // <!---------------------END---validation and uploading--------------------------->
+
+        // <!-- ******************upload and save to firebase storage*************************** -->
+
+
+        var databaseRef = firebase.database().ref().child("Photos");
+        databaseRef.once("value").then(function(snapshot) 
+        {
+            var name = picture ["name"];
+            var dateStr = new Date().getTime();
+            var fileCompleteName = name + "_" + dateStr;
+
+            var storageRef = firebase.storage().ref("Photo Images");
+            var photoStorageRef = storageRef.child(fileCompleteName);
+
+            var uploadTask = photoStorageRef.put(picture);
+
+            uploadTask.on("state_changed", 
+            
+                function progress(snapshot) {
+                    var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    $("#upload-progress").html(Math.round(percentage) + "%");
+                    $("#upload-progress").attr("style", "width:" + percentage + "%");
+                },
+                function error(err) {
+
+                },
+
+                function complete() {
+                    var user = firebase.auth().currentUser;
+                    var userName;
+                    firebase.database().ref('Users/' + user.uid).once('value'). then(function(snapshot) 
+                    {
+                        var fName =(snapshot.val() && snapshot.val().firstName);
+                        var sName =(snapshot.val() && snapshot.val().lastName);
+
+                        userName = fName + " " + sName;
+                    });
+
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadUrl)
+                    {
+                        var time = new Date();
+
+                        var options = {
+                            weekday: "long",
+                            month: "long",
+                            day: "2-digit",
+                            year:"numeric"
+                        };
+
+                        var photoData = 
+                        {
+                            "image": downloadUrl,
+                            "name": fileCompleteName,
+                            "desc": desc,
+                            "uid": user.uid,
+                            "counter": 5000 - counter,
+                            "userName": userName,
+                            "time": time.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true}),
+                            "date": time.toLocaleString('en-US', options)
+                        };
+
+                        var newPostRef = databaseRef.push();
+                        newPostRef.set(photoData, function(err)
+                        {
+                            if(err) {
+                                $("#result").attr("class", "alert alert-danger");
+                                $("#result").html(err.message);
+                            }
+                            else {
+                                $("#result").attr("class", "alert alert-success");
+                                $("#result").html("Uploaded Successfully");
+
+                                window.open("", "_self");
+                                
+                            }
+                            resetForm();
+                        });
+                    });
+
+                }
+            );
+
+        // <!-- ******************-----END ----upload and save to firebase storage*************************** -->
+
+        });
+
+
+                             // <!-- ****************** Retrieve and Display Data from Firebase *************************** -->
+     
+    var dbPhotos = firebase.database().ref().child("Photos").orderByChild("counter");
+    dbPhotos.on("value", function(photos)
+    {
+        if(photos.exists()) 
+        {
+            var photosHtml = "";
+
+            photos.forEach(function(singlePhoto)
+            {
+                counter = counter + 1;
+                photosHtml += "<div class='jumbotron bg-light text-dark border border-dark'>";
+
+                    photosHtml += "<div><img width='1000' height='auto' src='";
+                        photosHtml += singlePhoto.val().image;
+                    photosHtml += "'/></div> <br>";  
+                    
+                    photosHtml += "<div class='row'>";
+                        photosHtml += "<div class='col-sm-5'> <p style='color:grey'>"
+                                     + "Published by: " + singlePhoto.val().userName
+                                     + "</p> </div>" +
+
+                                     "<div class='col-sm-3'> <p style='color:grey;'>"
+                                     + "Time: " + singlePhoto.val().time
+                                     + "</p> </div>" + 
+
+                                     "<div class='col-sm-4'> <p style='color:grey;'>"
+                                     + "Date: " + singlePhoto.val().date
+                                     + "</p> </div>" 
+                                     ;
+                        photosHtml += "</div> <br>"; 
+
+                        photosHtml += "<div>";
+                            photosHtml += singlePhoto.val().desc;
+                        photosHtml += "</div> <br>";  
+
+                photosHtml += "</div>";   
+            });
+
+            // $("#photos").html(photosHtml);
+        }
+    });
+     // <!-- ******************-----END ---- Retrieve and Display Data from Firebase *************************** -->
+        
+    });
+
+    function resetForm() 
+    {
+        $("#main-form")[0].reset();
+        $("#selected-image").fadeOut();
+        $("#upload-progress").html("Completed");
+    }
+
+</script>
+
