@@ -1,11 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-storage.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
+        <a class="navbar-brand" href="mainPage.html">My Stash</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link btn btn-dark" href="home.html" onclick="switchView('home.html')">Upload <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-dark" href="myphotos.html" onclick="switchView('myphotos.html')">My Images</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="btn-logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
 <div class="jumbotron bg-dark" style="margin-top: 50px">
     <div class="container text-center">
         <form id="main-form">
             <div class="form-group">
                 <textarea type="text" rows="1" placeholder="Type Image tags here..." class="form-control" id="main-desc"></textarea>
-                <!-- <div class="invalid-feedback">
-                    Please write a description.
-                </div> -->
             </div>
             <div class="form-group">
                 <input type="file" id="main-image" class="form-control">
@@ -19,14 +53,12 @@
             
                 <div class="form-group">
                     <div class="progress bg-secondary">
-                        <div class="progress-bar bg-success">
                             <div class="progress-bar bg-success" id="upload-progress" style="width: 0%;">0%</div>
-                        </div>
                     </div>
                 </div>
             
             <div class="form-group">
-                <button id="save-photo" type="button" style="width: 150px; height: 60px;" class="btn btn-light bg-light text-dark">Upload Image</button>
+                <button id="save-photo" type="button" style="width: 150px; height: 60px;" class="btn btn-light">Upload Image</button>
             </div>
         </form>
         <div id="result">
@@ -34,22 +66,6 @@
         </div>
     </div>
 </div>
-<!-----------------After Post Area-------------------->
-<!-- <hr>
-<br><br><br>
-<div class="text-center bg-light text-dark">
-    <h3>My Images</h3>
-</div>
-<hr>
-<br>
-
-<div class="row container-fluid bg-3">
-    <div class="col-sm-12" id="photos">
-        
-    </div>
-</div> -->
-
-<!---------------------validation and uploading--------------------------->
 
 <script>
     var validImagetypes = ["image/gif", "image/png", "image/jpg", "image/jpeg"];
@@ -63,8 +79,8 @@
             var reader = new FileReader();
             reader.onload = function(e)
                 {
-                    $("selected-image").attr('src', e.target.result);
-                    $("selected-image").fadeIn();
+                    $("#selected-image").attr('src', e.target.result);
+                    $("#selected-image").fadeIn();
                 }
             reader.readAsDataURL(image_photo.files[0]);
 
@@ -84,12 +100,6 @@
 
         var desc = $("#main-desc").val();
         var picture = $("#main-image").prop("files")[0];
-
-        // if(!desc)
-        // {
-        //     $("#main-desc").addClass("is-invalid");
-        //     return;
-        // }
 
         if(picture == null)
         {

@@ -17,7 +17,7 @@ code {
   box-sizing: border-box;
   padding: 20px 20px 0;
   font-size: 50px;
-  color: rgb(104, 245, 10);
+  color: rgb(8, 236, 46);
   text-align: right;
   position: absolute;
   top: 10px;
@@ -31,62 +31,60 @@ code {
   height: 70px;
   display: block;
   float: left;
-  color: rgb(54, 172, 30);
+  color: rgb(8, 236, 46);
   line-height: 50px;
   text-align: center;
   box-sizing: border-box;
   cursor: crosshair;
   border: 0 none;
-  border-left: 1px solid #8e8e8e;
-  border-bottom: 1px solid #8e8e8e;
+  border-left: 1px solid #808080;
+  border-bottom: 1px solid #808080;
   border-top: 1px solid #8e8e8e;
-  border-right: 1px solid #8e8e8e;
+  border-right: 1px solid #cecece;
   border-block-end-style: 5px double;
-  border-radius: 15px;;
+  border-radius: 15px;
   font-family: 'Lato', sans-serif;
   font-size: 24px;
   font-weight: bold;
-  background-color: black;
-  background-image: linear-gradient(rgb(68, 78, 77), rgb(20, 19, 19));
-  box-shadow: 3px 5px 5px  rgb(54, 172, 30);
+  /* background-color: black; */
+  background-image: linear-gradient(rgb(42, 39, 187), rgb(6, 4, 41));
+  box-shadow: 5px 5px 4px rgb(7, 6, 6);
 
-  
 }
-
-a:hover {
-  background-color: yellow;
-}
-
 
 .calculator {
-  width: 285px;
+  width: 290px;
   height: 359px;
   padding: 120px 0 0;
-  background: #333333;
+  background: #0d7dd8;
   position: absolute;
   box-sizing: border-size;
   top: 50%;
   left: 50%;
-  margin: -240px 0 0 -160px;
+  margin: -220px 0 0 -160px;
   border: 1px solid black;
   border-radius: 20px;
-  box-shadow: 10px 20px 5px #838282;
+  box-shadow: 15px 15px 3px #313131;
   
 }
 
 @media (max-width:800px) {
   .calculator {
-    width: 284px;
-    height: 363px;
+    width: 286px;
+    height: 360px;
     padding: 120px 0 0;
-    background: #1b1b1b;
-    background-image: linear-gradient(rgb(35, 37, 37), rgb(14, 5, 5));
+    background-image: linear-gradient(rgb(22, 29, 95), rgb(129, 142, 168));
     position: absolute;
     box-sizing: border-size;
     top: 50%;
-    left: 55%;
+    left: 54%;
 
   }
 
   
 }
+
+
+
+
+
