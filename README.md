@@ -1,6 +1,7 @@
 # TipLikeAPro
 Back End
 Seifu Dagnachew, Ben Escoria, Nick Wilson
+
 Front End
 Kong yang, Nermin Ceric, Brian O’Bryan
  
@@ -9,6 +10,7 @@ Kong yang, Nermin Ceric, Brian O’Bryan
  
 ________________________________________
 Why would you need TipLikePro?
+
 A tip calculator that works and looks exactly as you can imagine until you type in the secret passcode. The tip calculator then turns into a private storage place where you can hide all your most secret photos, videos, bookmarks and contacts.
 
 
